@@ -69,7 +69,6 @@ int is_empty_line(char *line, char *delims)
 *
 *Return: A pointer to the corresponding function.
 */
-
 void (*get_op_func(char *opcode))(stack_t**, unsigned int)
 {
 	instruction_t op_funcs[] = {
@@ -119,11 +118,11 @@ int run_monty(FILE *script_fd)
 
 	if (init_stack(&stack) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+
 	while (getline(&line, &len, script_fd) != -1)
 	{
 		line_number++;
 		op_toks = strtow(line, DELIMS);
-
 		if (op_toks == NULL)
 		{
 			if (is_empty_line(line, DELIMS))
@@ -131,7 +130,7 @@ int run_monty(FILE *script_fd)
 			free_stack(&stack);
 			return (malloc_error());
 		}
-		else if (op_toks[0][0] == '#') /* comment line */
+		else if (op_toks[0][0] == '#')
 		{
 			free_tokens();
 			continue;
